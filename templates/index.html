@@ -18,15 +18,16 @@
         <div class="text-2xl font-bold bg-base-300 text-center">
             <h1>Hello World!</h1>
         </div>
-        <div class="container">
+        <form class="container" method="post" action= "{% url 'upload' %}" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Upload Your File</label>
-                <input type="file" class="form-control" id="exampleFormControlInput1">
+                <input type="file" class="form-control" id="exampleFormControlInput1" name="file-upload">
               </div>
               <div class="mb-3">
-                <button class="form-control width-200 btn btn-primary">Evaluate Accuracy</button>
+                <input type="submit" class="form-control width-200 btn btn-primary" value="Upload File"/>
               </div>
-        </div>
+        </form>
     </div>
 </body>
 </html>

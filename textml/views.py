@@ -23,9 +23,7 @@ model = keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.Ke
 
 
 
-max_len = 1364
 
-test_df = pd.read_csv('train_data/test_essays.csv') 
 
 
 def index(request):

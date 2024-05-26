@@ -2,45 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load bootstrap5 %} {% bootstrap_css %}
     {% bootstrap_javascript %}
     {% load static %}
     <title>Text ML</title>
     <style>
-        #form {
+        #form,
+        #table {
             width: 70%;
         }
 
-        #container{
+        #container {
             width: 70%;
             border-radius: 10px;
-            box-shadow: 1px 2px 1px 0px rgba(0, 0, 0, 0.5); /* Add a shadow effect to the container */
-            padding: 20px; /* Optional: Add padding to the container to create space around the text */
+            box-shadow: 1px 2px 1px 0px rgba(0, 0, 0, 0.5);
+            /* Add a shadow effect to the container */
+            padding: 20px;
+            /* Optional: Add padding to the container to create space around the text */
         }
 
-        #heading{
+        #heading {
             font-size: 30pt;
             font-family: monospace;
             font-weight: 900;
         }
 
         @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
-
-        span{
-            color: #9370DB;
+        span {
+            color: #9370db;
             animation: blink 2s infinite;
         }
 
-        img{
-            mix-blend-mode:multiply;
+        img {
+            mix-blend-mode: multiply;
         }
     </style>
 </head>
@@ -51,31 +60,61 @@
             <div class="row">
                 <div class="col-md-6">
                     <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-rpa-illustration_23-2149277643.jpg?w=1060&t=st=1716711206~exp=1716711806~hmac=22a12f85c3ce85d09da4f76f27dbd9e368731d2fb9cb537b7aec2caafdbde6f5"
-                        class="img-fluid" alt="Demo illustration" style="width: 100%; max-width: 300px;">
+                        class="img-fluid" alt="Demo illustration" style="width: 100%; max-width: 300px" />
                 </div>
                 <div class="col-md-6">
                     <h1 class="my-4" id="heading">Text ML <span>!</span></h1>
                     <h3 class="text-muted">Unlock the power of your CSV data</h3>
-                    <p>Analyze your CSV files and get insights into your machine learning models.
-                        Upload your file and see the accuracy instantly.</p>
+                    <p>
+                        Analyze your CSV files and get insights into your machine learning
+                        models. Upload your file and see the accuracy instantly.
+                    </p>
                 </div>
             </div>
         </div>
-        <form id="form" class="container" method="post" action="{% url 'index' %}" enctype="multipart/form-data" style="margin-top: 10px;">
+        <form id="form" class="container" method="post" action="{% url 'index' %}" enctype="multipart/form-data"
+            style="margin-top: 10px">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Upload Your File</label>
-                <input type="file" class="form-control" id="exampleFormControlInput1" name="file-upload">
+                <input type="file" class="form-control" id="exampleFormControlInput1" name="file-upload" />
             </div>
             <div class="mb-3">
                 <input type="submit" class="form-control width-200 btn btn-primary" value="Upload File" />
             </div>
         </form>
 
-        {% if upload == true %}
-        <p>File uploaded successfully!</p>
-        {% endif %}
+        <div class="container" id="table">
+            {% if upload %}
+            <!-- <h3 class="relative-absolute top-0 start-0">File uploaded successfully!</h3> -->
+            {% if predictions %}
+            <h3>Predictions:</h3>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Text</th>
+                    <th>Probability of AI Generated Text</th>
+                </tr>
+                {% for item in predictions %}
+                <tr>
+                    <td>{{ item.text }}</td>
+                    <td>{{ item.predictions}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>No predictions to show.</p>
+            {% endif %}
+            {% else %}
+            <p>Please upload a file to see predictions.</p>
+            {% endif %}
+        </div>
     </div>
 </body>
+<footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Text ML!, An Implementation of <a
+                href="https://huggingface.co/docs/transformers/en/model_doc/bert">BERT Model</a></p>
+    </div>
+</footer>
 
 </html>

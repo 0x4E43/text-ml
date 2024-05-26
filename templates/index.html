@@ -10,7 +10,7 @@
     <title>Text ML</title>
     <style>
         .container {
-            width: 50%;
+            width: 70%;
         }
     </style>
 </head>
@@ -18,7 +18,13 @@
 <body>
     <div>
         <div class="text-2xl font-bold bg-base-300 text-center">
-            <h1>Hello World!</h1>
+            <img src="illustation.svg" height="500px" width="500px"/>
+            <h1>Text ML!</h1>
+
+            <h2>Unlock the power of your CSV data</h2>
+
+            <h3>Analyze your CSV files and get insights into your machine learning models. Upload your file and see the
+                accuracy instantly.</h3>
         </div>
         <form class="container" method="post" action="{% url 'index' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -31,7 +37,7 @@
             </div>
         </form>
 
-        {% if upload %}
+        {% if upload == true %}
         <p>File uploaded successfully!</p>
         {% endif %}
     </div>

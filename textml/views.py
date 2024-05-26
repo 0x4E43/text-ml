@@ -25,7 +25,7 @@ def index(request):
             print("Error uploading file:", e)
     else:
         print("GET request received")
-    return render(request, 'index.html')
+    return render(request, 'index.html', {"upload": "false"})
 
 def home(request):
     return HttpResponse("home Page works")

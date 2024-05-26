@@ -1,13 +1,7 @@
-import csv
-from io import FileIO, TextIOWrapper
 import os
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
 
 import pandas as pd
-from sklearn.calibration import LabelEncoder
-from sklearn.model_selection import train_test_split
 from textml import settings
 
 
@@ -21,7 +15,6 @@ import numpy as np
 
 # modelFile = FileSystemStorage().open('./model/model-bert.h5', 'rb')
 
-import tensorflow_text as text 
 
 model_path = os.path.join(settings.BASE_DIR, 'model', 'nimai_model.h5')
 print(model_path)

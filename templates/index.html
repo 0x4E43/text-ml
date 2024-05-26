@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-  <title>Text ML</title>
-  <style>
-    .container{
-        width: 50%;
-    }
-  </style>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>Text ML</title>
+    <style>
+        .container {
+            width: 50%;
+        }
+    </style>
 </head>
+
 <body>
     <div>
         <div class="text-2xl font-bold bg-base-300 text-center">
             <h1>Hello World!</h1>
         </div>
-        <form class="container" method="post" action= "{% url 'upload' %}" enctype="multipart/form-data">
+        <form class="container" method="post" action="{% url 'index' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Upload Your File</label>
                 <input type="file" class="form-control" id="exampleFormControlInput1" name="file-upload">
-              </div>
-              <div class="mb-3">
-                <input type="submit" class="form-control width-200 btn btn-primary" value="Upload File"/>
-              </div>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="form-control width-200 btn btn-primary" value="Upload File" />
+            </div>
         </form>
+
+        {% if upload %}
+        <p>File uploaded successfully!</p>
+        {% endif %}
     </div>
 </body>
+
 </html>

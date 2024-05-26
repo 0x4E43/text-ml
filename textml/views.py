@@ -1,20 +1,21 @@
 import csv
 from io import FileIO, TextIOWrapper
+import os
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
-import keras
+from tensorflow import keras
 import pandas as pd
+import tensorflow_hub as hub
+from textml import settings
 
+from keras import Layer
+# modelFile = FileSystemStorage().open('./model/model-bert.h5', 'rb')
+model_path = os.path.join(settings.BASE_DIR, 'model', 'model-bert.h5')
+print(model_path)
 
-model = keras.models.load_model('model-bert.h5')
-# def index(request):
-#     try:
-#         return render(request, 'index.html')
-#     except Exception as e:
-#         print(e)
-#         print("Error rendering template: {}", e)
+model = keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.KerasLayer})
 
 def index(request):
     if request.method == 'POST':

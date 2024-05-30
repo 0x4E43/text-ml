@@ -61,6 +61,23 @@
         .content {
             flex: 1;
         }
+
+        .green {
+            color: green;
+            border: 1px solid green;
+        }
+
+        .red {
+            color: red;
+            border: 1px solid red;
+        }
+
+        .red,
+        .green {
+            font-weight: bold;
+            border-radius: 10px;
+            width: 150px;
+        }
     </style>
 </head>
 
@@ -103,11 +120,22 @@
                 <tr>
                     <th>Text</th>
                     <th>Probability of AI Generated Text</th>
+                    <th>Confidence</th>
                 </tr>
                 {% for item in predictions %}
                 <tr>
                     <td>{{ item.text }}</td>
                     <td>{{ item.predictions}}</td>
+                    <td style="text-align: center;">
+                        <div class="{% if item.prediction > 50 %}green{% else %}red{% endif %}">
+                            {% if item.prediction > 50 %}
+                            NORMAL
+                            {% else %}
+                            AI GEN.
+                            {% endif %}
+                        </div>
+                    </td>
+
                 </tr>
                 {% endfor %}
             </table>

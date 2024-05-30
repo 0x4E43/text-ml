@@ -16,7 +16,7 @@ import numpy as np
 # modelFile = FileSystemStorage().open('./model/model-bert.h5', 'rb')
 
 
-model_path = os.path.join(settings.BASE_DIR, 'model', 'nimai_model.h5')
+model_path = os.path.join(settings.BASE_DIR, 'model', 'nim_bert_model.h5')
 print(model_path)
 
 model = keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.KerasLayer})
@@ -39,7 +39,7 @@ def index(request):
             tokenizer.fit_on_texts(data['text'])
 
             # Define max_len based on the training data
-            max_len = 860  # Ensure this matches the input length expected by the model
+            max_len = 857  # Ensure this matches the input length expected by the model
 
             # Tokenize and pad the text data
             text_sequences = tokenizer.texts_to_sequences(data['text'])
@@ -50,7 +50,7 @@ def index(request):
 
             # Load the model
             model2 = keras.models.load_model("./model/nimai_model.h5")
-
+            print("Model Summary: ", model.summary())
             # Initialize an array to store predictions for each fold
             fold_preds = np.zeros(shape=(len(data),), dtype='float32')
 
@@ -77,7 +77,7 @@ def index(request):
             print("Prediction: \n", result_dict)
             return render(request, 'index.html', {"upload": True, "predictions": result_dict})
         except Exception as e:
-            print("Error uploading file:", e)
+            print("Error uploading file:", str(e))
             return render(request, 'index.html', {"upload": False, "predictions": None})
     else:
         print("GET request received")
